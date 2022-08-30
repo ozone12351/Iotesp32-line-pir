@@ -25,12 +25,11 @@ void loop() {
   if (state == 1) {
 Serial.println("Somebody is in this area!");
 LINE.notify("แจ้งเตือน : มีคนบุกรุก !!");
+}
 else if (state == 0) {
 Serial.println("No one!");
 }
 
 delay(5000);
 
-}
   }
-}
