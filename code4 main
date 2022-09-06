@@ -1,0 +1,35 @@
+#include <TridentTD_LineNotify.h> // ดาวน์โหลด Library ได้ที่ https://github.com/TridentTD/TridentTD_LineNotify
+byte sensorPin = 18; // กำหนดขา input เซ็นเซอร์
+
+
+#define SSID      "Poa1" // ชื่อ Wi- Fi ที่ต้องการให้ ESP8266 เชื่อมต่อ
+#define PASSWORD  "Poa12345" // รหัส Wi-Fi 
+#define LINE_TOKEN  "t3mORwFYHzu8JvRW2JcDvtUVZrl6IHrtR6UVrojrFnU" //Token line ที่ขอมาจาก Line notify
+
+void setup() {
+  Serial.begin(115200);
+  WiFi.begin(SSID, PASSWORD); // เชื่อมต่อ Wi-Fi
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(1000);
+    Serial.print(".");
+  }
+  Serial.println(""); // เชื่อมต่อเสร็จหลุดออกจากลูป มาทำบรรทัดนี้ลงไป
+  Serial.println("WiFi connected");
+  Serial.println();
+Serial.print("connected: ");
+Serial.println(WiFi.localIP());
+  LINE.setToken(LINE_TOKEN); // เชื่อมต่อกับ Token Line
+}
+void loop() {
+  byte state = digitalRead(sensorPin);
+  if (state == 1) {
+Serial.println("Somebody is in this area!");
+LINE.notify("แจ้งเตือน : มีคนบุกรุก !!");
+}
+else if (state == 0) {
+Serial.println("No one!");
+}
+
+delay(5000);
+
+  }
